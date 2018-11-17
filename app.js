@@ -16,7 +16,7 @@ const logoutRouter = require('./routes/logout');
 
 const app = express();
 
-/* 
+/*
   Ensure helmet is enabled early on so that headers
  are properly set with reasonable defaults.
  */
@@ -28,15 +28,15 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 // Manage sessions using express-session
 // TODO: hardening configuration, such as https only cookies
-app.use(require('express-session') ({
+app.use(require('express-session')({
   secret: 'something',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 
 // Passport configuration
