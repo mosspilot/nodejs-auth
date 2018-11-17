@@ -59,8 +59,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // Set up the mongoose connection
-mongoose.connect('mongodb://localhost/auth-exercise');
-
+mongoose.connect('mongodb://localhost/auth-exercise', {'useNewUrlParser': true});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
