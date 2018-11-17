@@ -1,0 +1,6 @@
+Add SSL certificates here.
+
+x509 certificate named "certificate.pem"
+private key named "key.pem"
+
+// TODO: Improve security by storing in a local keystore
