@@ -41,6 +41,8 @@ The following is an ongoing list of items to consider for hardening into a produ
 ### Local login page
 - TODO: Input validation / testing / prevention of injection attacks
 - TODO: Testing side channel attack on user account discovery
+- TODO: Limited number of login attempts
+- TODO: DDOS mitigation
 
 ### Session Management
  - TODO: Investigate Session Management in Express: Uses secure cookies?
