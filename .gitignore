@@ -1,3 +1,5 @@
 node_modules/
 package-lock.json
 sslcert/*.pem
+_config*
+launch.json
