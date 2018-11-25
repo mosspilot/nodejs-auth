@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
+const accountRouter = require('./routes/account');
 
 const app = express();
 
@@ -34,7 +35,7 @@ app.use(cookieParser());
 // Manage sessions using express-session
 // TODO: hardening configuration, such as https only cookies
 app.use(require('express-session')({
-  secret: 'something',
+  secret: 'something to replace later',
   resave: false,
   saveUninitialized: false,
 }));
@@ -51,8 +52,9 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 
+app.use('/account', accountRouter);
 
-// Set up passport strategy
+// Set up passport strategy for local auth
 const Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
