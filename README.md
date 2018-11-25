@@ -46,3 +46,8 @@ The following is an ongoing list of items to consider for hardening into a produ
 
 ### Session Management
  - TODO: Investigate Session Management in Express: Uses secure cookies?
+
+# Other TODOs / Nice to haves:
+ - Maybe Revisit serialization approaches for local / github
+ - Bring in other profile data to the account collection
+ - Clean up routing for gihub authentication
