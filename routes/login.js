@@ -7,9 +7,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', passport.authenticate('local',
-  {successReturnToOrRedirect: '/', failureRedirect: '/login'}),
-  function(req, res) {
-    res.redirect('/');
-});
+    {successReturnToOrRedirect: '/', failureRedirect: '/login'}));
 
 module.exports = router;
