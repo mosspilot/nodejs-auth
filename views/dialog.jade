@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p.lead #{client.name} is requesting access to your account.
+  p.lead #{transacton_id}
+  if (user)
+    if (user.name)
+      p You are currently logged in as #{user.name}
+    else 
+      p You are currently logged in as #{user.username}
+    p Do you approve their request?
+    form(action="/dialog/authorize/decision", method="post")
+        input.form-control(type="hidden", name="transaction_id", value="#{transactionId}")
+        .form-group
+            input.form-control(type='Submit', value='Allow', id="allow")
+            input.form-control(type='Submit', value="Deny", name='Cancel', id="deny")

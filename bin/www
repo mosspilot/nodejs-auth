@@ -16,8 +16,8 @@ const sslCert = fs.readFileSync('sslcert/certificate.pem');
 // Describe options to the https server
 const sslOptions = {
   key: sslkey,
-  cert: sslCert
-}
+  cert: sslCert,
+};
 
 /**
  * Get port from environment and store in Express.

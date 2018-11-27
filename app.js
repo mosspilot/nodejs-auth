@@ -13,6 +13,11 @@ const indexRouter = require('./routes/index');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
+const accountRouter = require('./routes/account');
+const oauth2Router = require('./routes/oauth');
+const dialogRouter = require('./routes/dialog');
+const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -34,7 +39,7 @@ app.use(cookieParser());
 // Manage sessions using express-session
 // TODO: hardening configuration, such as https only cookies
 app.use(require('express-session')({
-  secret: 'something',
+  secret: 'something to replace later',
   resave: false,
   saveUninitialized: false,
 }));
@@ -45,21 +50,29 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Router routes
-app.use('/', indexRouter);
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
+// Set up the mongoose connection
+mongoose.connect('mongodb://localhost/auth-exercise', {'useNewUrlParser': true});
 
-
-// Set up passport strategy
+// Set up passport strategy for local auth
 const Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-// Set up the mongoose connection
-mongoose.connect('mongodb://localhost/auth-exercise', {'useNewUrlParser': true});
+// OAuth 2 Passport Settings
+require('./auth/oauth2');
+
+// Router routes
+app.use('/', indexRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('/account', accountRouter);
+app.use('/dialog', dialogRouter);
+app.use('/oauth', oauth2Router);
+app.use('/api', apiRouter);
+app.use('/auth', authRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

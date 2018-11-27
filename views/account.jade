@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  p.lead Account Page
+  if (user)
+    if (user.name)
+      p You are currently logged in as #{user.name}
+    else 
+      p You are currently logged in as #{user.username}
+    a(href="/logout") Logout
