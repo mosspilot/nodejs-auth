@@ -24,6 +24,7 @@ The following section is an ongoing discussion of security related features or c
     - *Potential feature: ngix may be more efficient*
 - Utilizes the "helmet" middleware for sane header defaults and reduced attack surface for XSS / CSRF / Cookie abuse, etc
 - Utilizes passport-local-mongoose middleware to store passwords in hashed and salted format
+- Utilizes espress-session to set cookie attributes
 
 ## Hardening Considerations / TODO's
 The following is an ongoing list of items to consider for hardening into a production environment. The list is considered in progress and will be updated as new features are developed.
@@ -44,10 +45,6 @@ The following is an ongoing list of items to consider for hardening into a produ
 - TODO: Limited number of login attempts
 - TODO: DDOS mitigation
 
-### Session Management
- - TODO: Investigate Session Management in Express: Uses secure cookies?
-
 # Other TODOs / Nice to haves:
  - Maybe Revisit serialization approaches for local / github
  - Bring in other profile data to the account collection
- - Clean up routing for gihub authentication
