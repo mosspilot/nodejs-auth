@@ -7,10 +7,7 @@ router.get('/github', passportGithub.authenticate('github', {scope: ['user:email
 
 // Handler for the callback from OAuth
 router.get('/github/callback',
-    passportGithub.authenticate('github', {failureRedirect: '/error'}),
-    function(req, res) {
-    // For now we just redirect to the main page
-      res.redirect('/');
-    });
+    passportGithub.authenticate('github',
+        {successReturnToOrRedirect: '/', failureRedirect: '/error'}));
 
 module.exports = router;
