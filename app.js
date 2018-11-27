@@ -44,7 +44,10 @@ app.use(require('express-session')({
   saveUninitialized: false,
   cookie: {
     secure: true,
-    sameSite: true,
+    // Note sameSite lax is set here so that we can use the github
+    // social provider login via oauth and allow our sessions to
+    // propagate there and finish our authorization flow.
+    sameSite: 'Lax',
     path: '/',
     httpOnly: true,
   },

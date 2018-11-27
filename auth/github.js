@@ -9,6 +9,7 @@ passport.use(new GitHubStrategy({
   clientID: config.github.clientID,
   clientSecret: config.github.clientSecret,
   callbackURL: config.github.callbackURL,
+  state: true,
 },
 function(accessToken, refreshToken, profile, done) {
   // Use the github profile id for the search
