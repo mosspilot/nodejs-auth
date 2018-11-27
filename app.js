@@ -42,6 +42,12 @@ app.use(require('express-session')({
   secret: 'something to replace later',
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    secure: true,
+    sameSite: true,
+    path: '/',
+    httpOnly: true,
+  },
 }));
 
 // Passport configuration
