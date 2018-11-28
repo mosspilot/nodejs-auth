@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  p.lead #{client.name} is requesting access to your account.
-  p.lead #{transacton_id}
+  p.lead #{client.name} is requesting access to your account with the following scopes:
+  p #{scope}
   if (user)
     if (user.name)
       p You are currently logged in as #{user.name}
@@ -13,4 +13,4 @@ block content
         input.form-control(type="hidden", name="transaction_id", value="#{transactionId}")
         .form-group
             input.form-control(type='Submit', value='Allow', id="allow")
-            input.form-control(type='Submit', value="Deny", name='Cancel', id="deny")
+            input.form-control(type='Submit', value="Deny", name='cancel', id="deny")

@@ -26,7 +26,7 @@ function verifyClient(clientId, clientSecret, done) {
 passport.use(new BasicStrategy(verifyClient));
 
 // This strategy is registered to be used on api endpoints that we want
-// to protect using bearer tokens. The strategy checks that the acess
+// to protect using bearer tokens. The strategy checks that the access
 // tokens are found in our database and that the account exists that
 // authorized the bearer token.
 passport.use(new BearerStrategy(
@@ -37,9 +37,7 @@ passport.use(new BearerStrategy(
         Account.findById(token.userId, (error, user) => {
           if (error) return done(error);
           if (!user) return done(null, false);
-          // To keep this example simple, restricted scopes are not implemented,
-          // and this is just for illustrative purposes.
-          done(null, user, {scope: '*'});
+          return done(null, user, {scope: token.scope});
         });
       });
     }));

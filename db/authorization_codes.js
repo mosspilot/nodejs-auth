@@ -11,7 +11,7 @@ module.exports.find = (key, done) => {
 
 // TODO: Make the max life of authorization codes 10 minutes per
 // RFC 6749.
-module.exports.save = (code, clientId, redirectUri, userId, done) => {
-  codes[code] = {clientId, redirectUri, userId};
+module.exports.save = (code, clientId, redirectUri, userId, scope, done) => {
+  codes[code] = {clientId, redirectUri, userId, scope};
   done();
 };

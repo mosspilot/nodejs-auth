@@ -39,14 +39,16 @@ router.get('/authorize',
       });
     }),
     function(request, response) {
-      response.render('dialog', {transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client});
+      response.render('dialog', {transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client, scope: request.query.scope});
     });
 
 // Process the allow or deny, triggering the above middleware to send
 // the response to the user.
 router.post('/authorize/decision',
     login.ensureLoggedIn(),
-    server.decision()
+    server.decision(function(req, done) {
+      return done(null, {scope: req.oauth2.req.scope});
+    })
 );
 
 module.exports = router;
