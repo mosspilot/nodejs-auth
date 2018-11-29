@@ -1,6 +1,6 @@
 const oauth2orize = require('oauth2orize');
 const db = require('../db');
-const utils = require('../utils');
+const uid = require('uid-safe');
 
 const server = oauth2orize.createServer();
 
@@ -17,8 +17,9 @@ server.deserializeClient((id, done) => {
 
 // Register the authorization code grant type for the authentication code flow.
 server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
-  // TODO: Replace this out with a more secure implementation
-  const code = utils.getUid(16);
+  // Create a 32 character secure UID (represented by 27 bytes in hex).
+  // RFC 6819 5.1.4.2.2 specifies >= 128 bits
+  const code = uid.sync(27);
   db.authorizationCodes.save(code, client.id, redirectUri, user.id, ares.scope, (error) => {
     if (error) return done(error);
     return done(null, code);
@@ -39,8 +40,9 @@ server.exchange(oauth2orize.exchange.code((client, code, redirectUri, done) => {
     if (redirectUri !== authCode.redirectUri) return done(null, false);
 
     // Generate an access token
-    // TODO: replace this with a more secure function
-    const token = utils.getUid(256);
+    // 256 characters (represented by 192 bytes in hex) should be sufficient for our purposes
+    // RFC 6819 5.1.4.2.2 specifies >= 128 bits
+    const token = uid.sync(192);
 
     // Save the access token so that our bearer strategy can verify it
     // TODO: Token expiry
