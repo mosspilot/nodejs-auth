@@ -4,7 +4,7 @@ const router = express.Router();
 
 // This is the user info get endpoint protected by access tokens
 // Needs to conform with RFC6750
-router.get('/', passport.authenticate('bearer', {session: false, failureRedirect: '/login'}),
+router.get('/', passport.authenticate('bearer', {session: false}),
     function(req, res, next) {
       // Make sure there's scope in the bearer token
       // TODO: refactor duplicate code
@@ -26,7 +26,7 @@ router.get('/', passport.authenticate('bearer', {session: false, failureRedirect
     });
 
 // This is the user info post endpoint protected by access tokens
-router.post('/', passport.authenticate('bearer', {session: false, failureRedirect: '/login'}),
+router.post('/', passport.authenticate('bearer', {session: false}),
     function(req, res, next) {
       // Make sure there's scope in the bearer token
       if (!req.authInfo.scope) {
