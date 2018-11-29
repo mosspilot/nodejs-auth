@@ -16,7 +16,7 @@ const logoutRouter = require('./routes/logout');
 const accountRouter = require('./routes/account');
 const oauth2Router = require('./routes/oauth');
 const dialogRouter = require('./routes/dialog');
-const apiRouter = require('./routes/api');
+const userInfoRouter = require('./routes/userinfo');
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -79,7 +79,7 @@ app.use('/logout', logoutRouter);
 app.use('/account', accountRouter);
 app.use('/dialog', dialogRouter);
 app.use('/oauth', oauth2Router);
-app.use('/api', apiRouter);
+app.use('/userinfo', userInfoRouter);
 app.use('/auth', authRouter);
 
 

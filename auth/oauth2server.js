@@ -19,7 +19,7 @@ server.deserializeClient((id, done) => {
 server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
   // TODO: Replace this out with a more secure implementation
   const code = utils.getUid(16);
-  db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
+  db.authorizationCodes.save(code, client.id, redirectUri, user.id, ares.scope, (error) => {
     if (error) return done(error);
     return done(null, code);
   });
@@ -44,7 +44,7 @@ server.exchange(oauth2orize.exchange.code((client, code, redirectUri, done) => {
 
     // Save the access token so that our bearer strategy can verify it
     // TODO: Token expiry
-    db.accessTokens.save(token, authCode.userId, authCode.clientId, (error) => {
+    db.accessTokens.save(token, authCode.userId, authCode.clientId, authCode.scope, (error) => {
       if (error) return done(error);
       return done(null, token);
     });
