@@ -24,7 +24,8 @@
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^5.0.1"
+    "passport-local-mongoose": "^5.0.1",
+    "uid-safe": "^2.1.5"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
