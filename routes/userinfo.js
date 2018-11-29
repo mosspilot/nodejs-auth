@@ -3,12 +3,21 @@ const passport = require('passport');
 const router = express.Router();
 
 // This is the user info get endpoint protected by access tokens
+// Needs to conform with RFC6750
 router.get('/', passport.authenticate('bearer', {session: false, failureRedirect: '/login'}),
     function(req, res, next) {
+      // Make sure there's scope in the bearer token
+      // TODO: refactor duplicate code
+      if (!req.authInfo.scope) {
+        res.set({'WWW-Authenticate': 'Bearer realm="Jeff Moss"'});
+        res.statusCode = 401;
+        return res.end('Unauthorized');
+      }
       // Ensure that the openid scope has been approved in the bearer token
       if (!req.authInfo.scope.includes('openid')) {
         res.statusCode = 401;
-        return res.end('WWW-Authenticate: error"invalid_token", error_description="Invalid Scope"');
+        res.set({'WWW-Authenticate': 'Bearer realm="Jeff Moss", error="insufficient_scope"'});
+        return res.end('Unauthorized, insufficient scope');
       }
       return next();
     },
@@ -19,10 +28,17 @@ router.get('/', passport.authenticate('bearer', {session: false, failureRedirect
 // This is the user info post endpoint protected by access tokens
 router.post('/', passport.authenticate('bearer', {session: false, failureRedirect: '/login'}),
     function(req, res, next) {
+      // Make sure there's scope in the bearer token
+      if (!req.authInfo.scope) {
+        res.set({'WWW-Authenticate': 'Bearer realm="Jeff Moss"'});
+        res.statusCode = 401;
+        return res.end('Unauthorized');
+      }
       // Ensure that the openid scope has been approved in the bearer token
       if (!req.authInfo.scope.includes('openid')) {
         res.statusCode = 401;
-        return res.end('WWW-Authenticate: error"invalid_token", error_description="Invalid Scope"');
+        res.set({'WWW-Authenticate': 'Bearer realm="Jeff Moss", error="insufficient_scope"'});
+        return res.end('Unauthorized, insufficient scope');
       }
       return next();
     },
